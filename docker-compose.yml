@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  web:
+    image: qboxcoreweb
+    build:
+      context: .
+      dockerfile: QBoxCore.Web/Dockerfile
+    depends_on:
+      - api
+
+  api:
+    image: qboxcoreapi
+    build:
+      context: .
+      dockerfile: QBoxCore.Api/Dockerfile
+    depends_on:
+      - db
+
+  db:
+     image: "mcr.microsoft.com/mssql/server:2019-latest"
+     ports:
+     - "1433:1433"
+     environment:
+       SA_PASSWORD: "1qaz2WSX3edc"
+       ACCEPT_EULA: "Y"
+       MSSQL_PID: "Express"
+

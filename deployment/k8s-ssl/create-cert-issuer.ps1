@@ -1,0 +1,1 @@
+kubectl apply -f cluster-issuer.yaml #--namespace qbox

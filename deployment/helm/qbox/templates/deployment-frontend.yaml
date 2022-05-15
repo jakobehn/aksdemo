@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: frontend
+      app: qbox
+  template:
+    metadata:
+      labels:
+        app: qbox
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.frontend.containerPort }}
+        resources:
+          requests:
+            cpu: 250m
+          limits:
+            cpu: 500m

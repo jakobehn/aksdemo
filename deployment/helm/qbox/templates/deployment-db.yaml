@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: db
+  template:
+    metadata:
+      labels:
+        tier: db
+    spec:
+      containers:
+      - name: db
+        image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.db.service.port }}   
+        env:
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: SA_PASSWORD
+          value: 1qaz2WSX3edc

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: highscore-notification
+spec:
+  selector:
+    matchLabels:
+      app: highscore-notification
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: highscore-notification  
+    spec:
+      containers:
+      - name: qboxcorehighscorenotifications
+        image: jakob.azurecr.io/qboxcorehighscorenotification
+      imagePullSecrets:
+      - name: acr-auth
+
+      nodeSelector:
+        kubernetes.io/role: agent
+        kubernetes.io/os: linux
+        type: virtual-kubelet
+        
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule

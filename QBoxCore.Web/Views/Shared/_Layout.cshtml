@@ -1,0 +1,31 @@
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - QuizBo</title>
+
+    <link href="@Url.Content("~/animate.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/creative.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Site.css")" rel="stylesheet" type="text/css" />
+    <!-- Custom Fonts -->
+    <!-- Plugin CSS -->
+    <!--
+    To collect end-user usage analytics about your application,
+    insert the following script into each page you want to track.
+    Place this code immediately before the closing </head> tag,
+    and before any other scripts. Your first data will appear
+    automatically in just a few seconds.
+    -->
+    @Html.Raw(JavaScriptSnippet.FullScript)
+</head>
+<body>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

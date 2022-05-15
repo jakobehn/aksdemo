@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "QBoxCore.HighscoreNotification": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
