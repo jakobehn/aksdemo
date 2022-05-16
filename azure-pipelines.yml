@@ -79,7 +79,11 @@ stages:
           - task: HelmDeploy@0
             displayName: 'Deploy QBox Helm chart'
             inputs:
-              namespace: default
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'azure sponsorship'
+              azureResourceGroup: 'aksdemo'
+              kubernetesCluster: 'aksdemo'
+              namespace: 'default'
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/drop/qbox-$(Build.BuildNumber).tgz'
