@@ -84,7 +84,7 @@ stages:
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/drop/qbox-$(Build.BuildNumber).tgz'
               releaseName: 'quizbox'
-              overrideValues: 'frontend.image.tag=$(Build.BuildNumber),backend.image.tag=$(Build.BuildNumber),ingress.hostname=$(ingressHostName),ingress.hostname-canary=$(ingressHostNameCanary),db.service.port=1433,db.password=$(dbPassword)'
+              overrideValues: 'frontend.image.tag=$(Build.BuildNumber),backend.image.tag=$(Build.BuildNumber),ingress.hostname="$(ingressHostName)",ingress.hostnamecanary="$(ingressHostNameCanary)",db.service.port=1433,db.password=$(dbPassword)'
               arguments: --atomic
               
 
