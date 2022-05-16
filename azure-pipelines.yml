@@ -62,8 +62,6 @@ stages:
 - stage: Deploy
   displayName: Deploy
   dependsOn: Build
-  variables:
-  - group: quizbox-dev
 
   jobs:    
   - deployment: Deploy
