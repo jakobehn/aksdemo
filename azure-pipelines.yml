@@ -20,7 +20,18 @@ stages:
   - job: Build
     displayName: Build  
     steps:
-    
+    - task: Assembly-Info-NetCore@3
+      inputs:
+        Path: '$(Build.SourcesDirectory)'
+        FileNames: '**/*.csproj'
+        InsertAttributes: false
+        FileEncoding: 'auto'
+        WriteBOM: false
+        VersionNumber: '$(build.buildNumber)'
+        FileVersionNumber: '$(build.buildNumber)'
+        LogLevel: 'verbose'
+        FailOnWarning: false
+        DisableTelemetry: false
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Azure Container Registry'
