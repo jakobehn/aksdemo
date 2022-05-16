@@ -6,6 +6,11 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  ingressHostName: aksdemo.ehn.nu
+  ingressHostNameCanary: aksdemo-canary.ehn.nu
+  dbPassword: 1qaz2WSX3edc
+
 stages:
 
 - stage: Build
@@ -43,8 +48,8 @@ stages:
       displayName: 'Package Helm chart'
       inputs:
         command: 'package'
-        chartPath: 'helm/qbox'
-        chartVersion: '$(build.buildnumber)'
+        chartPath: 'demoscripts/deployment/helm/qbox'
+        chartVersion: '$(build.buildnumber)'        
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Helm chart artifact'
@@ -63,7 +68,7 @@ stages:
   jobs:    
   - deployment: Deploy
     displayName: Deploy
-    environment: '${{ parameters.environment }}'
+    environment: 'aksdemo'
     strategy:
       runOnce:
         deploy:
@@ -76,12 +81,12 @@ stages:
           - task: HelmDeploy@0
             displayName: 'Deploy QBox Helm chart'
             inputs:
-              namespace: ${{ parameters.namespace }}
+              namespace: default
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/drop/qbox-$(Build.BuildNumber).tgz'
               releaseName: 'quizbox'
-              overrideValues: 'frontend.image.tag=$(Build.BuildNumber),backend.image.tag=$(Build.BuildNumber),ingress.hostname=${{ parameters.ingressHostName }},db.service.port=1433,db.password=${{ parameters.dbpassword }},ingress.trafficManagerEnabled=${{ parameters.trafficManagerEnabled }},ingress.trafficManagerDNS=${{ parameters.trafficManagerDNS }}'
+              overrideValues: 'frontend.image.tag=$(Build.BuildNumber),backend.image.tag=$(Build.BuildNumber),ingress.hostname=$(ingressHostName),ingress.hostname-canary=$(ingressHostNameCanary),db.service.port=1433,db.password=$(dbPassword)'
               arguments: --atomic
               
 

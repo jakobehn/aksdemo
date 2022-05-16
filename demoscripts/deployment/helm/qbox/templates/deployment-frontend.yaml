@@ -4,23 +4,26 @@ metadata:
   name: frontend
 spec:
   replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0  
   selector:
     matchLabels:
       tier: frontend
-      app: qbox
+      mode: production
   template:
     metadata:
       labels:
-        app: qbox
         tier: frontend
+        mode: production
     spec:
       containers:
       - name: frontend
         image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
-        ports:
-        - containerPort: {{ .Values.frontend.containerPort }}
         resources:
           requests:
-            cpu: 250m
+            cpu: 200m          
           limits:
             cpu: 500m
+

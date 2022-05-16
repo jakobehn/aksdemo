@@ -1,11 +1,19 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qbox-ingress
+  name: aksdemo
+  namespace: default
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web
-    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.ingress.hostname }}
+        - {{ .Values.ingress.hostname-canary }}
+      secretName: tls-secret
   rules:
   - host: {{ .Values.ingress.hostname }}
     http:
@@ -13,8 +21,19 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          service: 
+          service:
             name: frontend
             port:
               number: 80
-
+              
+  - host: {{ .Values.ingress.hostname-canary }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-canary
+            port:
+              number: 80              
+       
