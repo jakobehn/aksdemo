@@ -24,7 +24,7 @@ stages:
       inputs:
         Path: '$(Build.SourcesDirectory)'
         FileNames: '**/*.csproj'
-        InsertAttributes: false
+        InsertAttributes: true
         FileEncoding: 'auto'
         WriteBOM: false
         VersionNumber: '$(build.buildNumber)'
