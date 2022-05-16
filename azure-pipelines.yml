@@ -79,13 +79,17 @@ stages:
           - task: HelmDeploy@0
             displayName: 'Deploy QBox Helm chart'
             inputs:
-              namespace: default
+              connectionType: 'Azure Resource Manager'
+              azureSubscription: 'azure sponsorship'
+              azureResourceGroup: 'aksdemo'
+              kubernetesCluster: 'aksdemo'
+              namespace: 'default'
               command: 'upgrade'
               chartType: 'FilePath'
               chartPath: '$(Pipeline.Workspace)/drop/qbox-$(Build.BuildNumber).tgz'
               releaseName: 'quizbox'
               overrideValues: 'frontend.image.tag=$(Build.BuildNumber),backend.image.tag=$(Build.BuildNumber),ingress.hostname=$(ingressHostName),ingress.hostname-canary=$(ingressHostNameCanary),db.service.port=1433,db.password=$(dbPassword)'
-              arguments: --atomic
+              arguments: '--atomic'
               
 
 
