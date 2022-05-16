@@ -20,6 +20,7 @@ stages:
   - job: Build
     displayName: Build  
     steps:
+    
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Azure Container Registry'
