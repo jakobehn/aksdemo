@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aci-sample
+spec:
+  selector:
+    matchLabels:
+      app: aci-sample
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: aci-sample
+    spec:
+      containers:
+      - name: aci-sample
+        image: mcr.microsoft.com/azuredocs/aci-helloworld
+
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule

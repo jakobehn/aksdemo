@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      tier: frontend
+      mode: production
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        mode: production
+    spec:
+      containers:
+      - name: frontend
+        image: jakob.azurecr.io/qboxcoreweb:0.8
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m  
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: frontend
+  spec:
+    selector:
+      tier: frontend
+      mode: production
+    type:  ClusterIP
+    ports:
+    - name:  web
+      port:  80
+      targetPort:  80

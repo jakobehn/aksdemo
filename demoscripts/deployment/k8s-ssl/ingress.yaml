@@ -12,6 +12,9 @@ spec:
   - hosts:
     - aksdemo.westeurope.cloudapp.azure.com
     secretName: tls-secret
+  - hosts:
+    - aksdemo-canary.westeurope.cloudapp.azure.com
+    secretName: tls-secret    
   rules:
   - host: aksdemo.westeurope.cloudapp.azure.com
     http:

@@ -7,9 +7,29 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Source/QBoxCore.Api/QBoxCore.Api.csproj"
+                "${workspaceFolder}/QBoxCore.Api/QBoxCore.Api.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "bridge-to-kubernetes.resource",
+            "type": "bridge-to-kubernetes.resource",
+            "resource": "api",
+            "resourceType": "service",
+            "ports": [
+                80
+            ],
+            "targetCluster": "aksdemo",
+            "targetNamespace": "default",
+            "useKubernetesServiceEnvironmentVariables": false
+        },
+        {
+            "label": "bridge-to-kubernetes.compound",
+            "dependsOn": [
+                "bridge-to-kubernetes.resource",
+                "build"
+            ],
+            "dependsOrder": "sequence"
         }
     ]
 }

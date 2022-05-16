@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-canary
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      tier: frontend
+      mode: canary
+  template:
+    metadata:
+      labels:
+        tier: frontend
+        mode: canary
+    spec:
+      containers:
+      - name: frontend
+        image: jakob.azurecr.io/qboxcoreweb:0.2
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name:  frontend-canary
+  spec:
+    selector:
+      tier: frontend
+      mode: canary
+    type:  ClusterIP
+    ports:
+    - name:  web
+      port:  80
+      targetPort:  80        

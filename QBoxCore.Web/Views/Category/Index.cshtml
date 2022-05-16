@@ -1,7 +1,6 @@
 ﻿@model QBox.Web.Models.QuizCategoriesViewModel
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row row-centered">
@@ -35,7 +34,7 @@
                         @using (Html.BeginForm("Random", "Category", FormMethod.Post, new {role = "form"}))
                         {
                             <button type="submit" class="btn" id="randomcategory">
-                                <img src="~/images/selectrandom.jpeg" class="img img-circle" width="128px">
+                                <img src="images/selectrandom.jpeg" class="img img-circle" width="128px">
                             </button>
                         }
                     </div>
@@ -46,7 +45,7 @@
     </div>
     <div class="col-md-4">
         <div class="col-md4">
-            <img src="~/images/small-logo.jpg" class="img img-circle">
+            <img src="images/small-logo.jpg" class="img img-circle">
         </div>
     </div>
 </div>
