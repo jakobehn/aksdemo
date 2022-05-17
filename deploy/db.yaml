@@ -13,15 +13,18 @@ spec:
         tier: db
     spec:
       containers:
-      - name: db
+      - name: sql
         image: mcr.microsoft.com/mssql/server:2019-latest
         ports:
           - containerPort: 1433
-        env:
+        env: 
           - name: ACCEPT_EULA
             value: "Y"
           - name: SA_PASSWORD
-            value: "1qaz2WSX3edc"
+            valueFrom:
+              secretKeyRef:
+                name: db-storage
+                key: password
 ---
 kind: Service
 apiVersion: v1
@@ -34,4 +37,3 @@ spec:
   ports:
   - name:  sql
     port:  1433
-    targetPort:  1433

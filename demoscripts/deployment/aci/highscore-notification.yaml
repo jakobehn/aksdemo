@@ -15,6 +15,7 @@ spec:
       containers:
       - name: qboxcorehighscorenotifications
         image: jakob.azurecr.io/qboxcorehighscorenotification
+        
       imagePullSecrets:
       - name: acr-auth
 
@@ -22,6 +23,7 @@ spec:
         kubernetes.io/role: agent
         beta.kubernetes.io/os: linux
         type: virtual-kubelet
+
       tolerations:
       - key: virtual-kubelet.io/provider
         operator: Exists
