@@ -8,3 +8,5 @@ kubectl delete svc api
 kubectl delete svc db
 kubectl delete ingress aksdemo
 kubectl delete secret db-storage
+kubectl delete hpa frontend
+kubectl delete deployment aci-sample
