@@ -10,13 +10,13 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - aksdemo.westeurope.cloudapp.azure.com
+    - aksdemo.ehn.nu
     secretName: tls-secret
   - hosts:
-    - aksdemo-canary.westeurope.cloudapp.azure.com
+    - aksdemo.ehn.nu
     secretName: tls-secret    
   rules:
-  - host: aksdemo.westeurope.cloudapp.azure.com
+  - host: aksdemo.ehn.nu
     http:
       paths:
       - path: /

@@ -1,5 +1,6 @@
 $resourceGroup = "aksdemo"
 $clusterName = "aksdemo"
+$azureContainerRegistry = "jakob"
 
 "Create resource group"
 az group create --name $resourceGroup --location westeurope
@@ -9,7 +10,10 @@ az monitor log-analytics workspace create `
     --resource-group $resourceGroup `
     --workspace-name $resourceGroup
 
-$logAnalyticsWorkspaceId = az monitor log-analytics workspace show -n $resourceGroup -g $resourceGroup --query id
+$logAnalyticsWorkspaceId = az monitor log-analytics workspace show  `
+                                -n $resourceGroup  `
+                                -g $resourceGroup  `
+                                --query id
 
 "Create vnet"
 az network vnet create `
@@ -34,11 +38,12 @@ az aks create `
     --resource-group $resourceGroup `
     --name $clusterName `
     --enable-managed-identity `
+    --attach-acr $azureContainerRegistry `
+    
     --vm-set-type VirtualMachineScaleSets `
     --node-count 3 `
     --generate-ssh-keys `
-    --load-balancer-sku standard `
-    --attach-acr jakob `
+    --load-balancer-sku standard `    
     --enable-addons monitoring,virtual-node `
     --workspace-resource-id $logAnalyticsWorkspaceId `
     --zones 1 2 3 `

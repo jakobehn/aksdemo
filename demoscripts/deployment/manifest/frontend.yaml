@@ -24,6 +24,12 @@ spec:
         image: jakob.azurecr.io/qboxcoreweb:2.2.50
         ports:
         - containerPort: 80
+        # resources:
+        #   requests:
+        #     cpu: "250m"                   
+        #   limits:
+        #     cpu: "500m"  
+        
         # readinessProbe:
         #   httpGet:
         #     path: /api/health
